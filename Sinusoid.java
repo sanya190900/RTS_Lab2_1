@@ -39,13 +39,15 @@ public class Sinusoid {
         double[] dft_image = new double[N];
         double[] dft_final = new double[N];
 
+        TableOfWPKN tableWpkN = new TableOfWPKN(N);
+        tableWpkN.createTable();
+
         for (int p = 0; p < N; p++) {
             for (int k = 0; k < N; k++) {
-                dft_real[p] += sygnalsOfResultingGarmonic[k] * WReal(p,k,N);
-                dft_image[p] += sygnalsOfResultingGarmonic[k] *WImage(p,k,N);
+                dft_real[p] += sygnalsOfResultingGarmonic[k] * tableWpkN.getTableWpkn(p,k).getRealPartOfWPKN();
+                dft_image[p] += sygnalsOfResultingGarmonic[k] * tableWpkN.getTableWpkn(p,k).getImaginePartOfWPKN();
             }
-            dft_final[p] = Math.sqrt(Math.pow(dft_real[p],2) +
-                    Math.pow(dft_image[p],2));
+            dft_final[p] = Math.sqrt(Math.pow(dft_real[p],2) + Math.pow(dft_image[p],2));
         }
         if (id == 1) array =  dft_final;
         else if (id == 2) array =  dft_real;
@@ -56,16 +58,16 @@ public class Sinusoid {
      * Метод для обчислення реальної частини W
      * @return - Math.cos(2*Math.PI*p*k/N)
      */
-    private double WReal(int p, int k, int N){
+    /*private double WReal(int p, int k, int N){
         return Math.cos(2*Math.PI*p*k/N);
-    }
+    }*/
     /*
      * Метод для обчислення уявної частини W
      * @return - Math.sin(2*Math.PI*p*k/N)
      */
-    private double WImage(int p, int k, int N){
+    /*private double WImage(int p, int k, int N){
         return Math.sin(2*Math.PI*p*k/N);
-    }
+    }*/
     /*
      * Метод для генерації випадкового сигналу
      */
